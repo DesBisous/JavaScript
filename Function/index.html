@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .warp {
+      padding: 0;
+      margin: 40px 0;
+      border: 16px solid violet;
+    }
+    .warp>div {
+      list-style: none;
+      font-size: 32px;
+      text-align: center;
+    }
+    .warp>div:nth-child(1) {
+      background-color: aqua;
+      height: 150px;
+      line-height: 150px;
+      margin: 30px 0;
+    }
+    .warp>.right-warp>div {
+      margin: 30px 0;
+      background-color: blueviolet;
+      height: 300px;
+      line-height: 300px;
+    }
+    .warp>.right-warp {
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <h1>双向数据绑定</h1>
+  <div id="app">
+    <input type="text"  v-model="name" placeholder="Name">
+    <p>{{ name }}</p>
+    <button onclick="onChangeName()">改名</button>
+    <div class="warp">
+      <div>Left</div>
+      <div class="right-warp">
+        <div>right</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./index.js" ></script>
+  <script>
+    var vm = new mvvm({
+      el: '#app',
+      data: {
+        name: '123'
+      },
+      methods: {
+        onChangeName() {
+          console.log(123);
+          this.name = '邝晓滨'
+        }
+      }
+    })
+  </script>
+</body>
+</html>

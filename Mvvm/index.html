@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mvvm 响应式实现</title>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-model="name" placeholder="Name">
+    <input type="text" v-model="age" placeholder="Age">
+    <button v-on:click="onChange">更改信息</button>
+
+    <div>
+      <p v-text="name"></p>
+      <p>{{ age }}</p>
+    </div>
+  </div>
+
+  <script type="module" src="./js/index.js"></script>
+</body>
+
+</html>
