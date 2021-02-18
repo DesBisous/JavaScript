@@ -15,7 +15,7 @@ export default function () {
   const state = reactive({
     title: 'ComponentA',
     time: '2021-02-17',
-    list: [
+    data: [
       {
         name: '小敏',
         age: '18'
@@ -30,6 +30,10 @@ export default function () {
       }
     ],
   });
+
+  setTimeout(function () {
+    state.time = '2021-02-18';
+  }, 3000)
 
   return [template, state];
 }

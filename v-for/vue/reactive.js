@@ -1,7 +1,9 @@
+import { update } from './code';
+
 export function reactive(data) {
   if (!isObject) return data;
 
-  return new Proxy(data, handleProxy);
+  return new Proxy(data, handleProxy());
 }
 
 function isObject(data) {
@@ -26,5 +28,7 @@ function createGet() {
 function createSet() {
   return function (target, key, value, receiver) {
     Reflect.set(target, key, value, receiver);
+    update(target);
+    return true
   }
 }

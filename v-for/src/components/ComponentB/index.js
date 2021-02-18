@@ -15,7 +15,7 @@ export default function () {
   const state = reactive({
     title: 'ComponentB',
     time: '2021-02-17',
-    list: [
+    data: [
       {
         name: '小红',
         age: '18'
