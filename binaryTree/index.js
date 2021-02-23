@@ -1,4 +1,4 @@
-console.log("二叉树");
+// 题目来源：https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 
 // 创建完美二叉树
 
@@ -175,7 +175,7 @@ console.log('后序遍历', aft);
 const combinPreMidRoot = treeConstructor.createTreeByPreAndMid(pre, mid);
 console.log(combinPreMidRoot);
 
-// 后序遍历 + 中序遍历 = 构建出树
+// 后序遍历 + 中序遍历 = 构建出树   
 /**
  *  y - aftLeft = pIndex - 1 - midLeft
  *  y = pIndex - 1 - midLeft + aftLeft
