@@ -206,25 +206,41 @@ for (let val of obj) {
 }
 
 
-function clone(obj, map = new WeakMap()) {
-  if (!obj || typeof obj !== 'object') return obj;  // 空或者非对象则返回本身
-
-  // 如果这个对象已经被记录则直接返回
-  if( map.get(obj) ) {
-    return  map.get(obj);
+function clone(obj, hashMap = new WeakMap()) {
+  if (!obj || typeof obj !== 'object') {
+    return obj
   }
 
-  //这个对象还没有被记录，将其引用记录在map中，进行拷贝    
-  let result = Array.isArray(obj) ? [] : {};  // 拷贝结果
-  map.set(obj, result); // 记录引用关系
-  for(let key in obj){
-    if(obj.hasOwnProperty(key)) {
-      result[key] = clone(obj[key]);
+  if (obj instanceof Date) {
+    return new Date(obj);
+  }
+
+  if (obj instanceof RegExp) {
+    return new RegExp(obj);
+  }
+
+  if (hashMap.get(obj)) {
+    return hashMap(obj);
+  }
+
+  const target = obj.constructor();
+
+  for (const key in obj) {
+    if (Object.hasOwnProperty(key)) {
+      target[key] = clone(obj[key]);
     }
   }
-  return result;
+
+  return target;
 }
 
 var a = { a: 1, b: null, c: undefined, d: '23', e: a, f: function () { }, g: true }
 
 console.log(a);
+
+const reg = /\{\{(.*?)\}\}/;
+const str = 'sad sad  {{ name }}sad1121';
+
+console.log(reg.test(str));
+console.log(str.match(reg));
+console.log(reg.exec(str));

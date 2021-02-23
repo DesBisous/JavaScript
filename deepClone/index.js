@@ -11,7 +11,7 @@ function deepClone(origin, hasMap = new WeakMap()) {
 
   // 如果这个对象已经被记录则直接返回
   if( hasMap.get(origin) ) {
-    return  hasMap.get(origin);
+    return hasMap.get(origin);
   }
 
   // 这个对象还没有被记录，将其引用记录在 hasMap 中，进行拷贝    
@@ -27,3 +27,4 @@ function deepClone(origin, hasMap = new WeakMap()) {
   }
   return result;
 }
+
