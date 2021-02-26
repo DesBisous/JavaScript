@@ -52,7 +52,7 @@ class BinaryTree {
 
     // 前序遍历
     prologueTraverse(node) {
-        this.pre.push(`${node.value}`);
+        this.pre.push(node.value);
         if (node.left) {
             this.prologueTraverse(node.left);
         }
@@ -67,7 +67,7 @@ class BinaryTree {
         if (node.left) {
             this.middleTraverse(node.left);
         }
-        this.mid.push(`${node.value}`);
+        this.mid.push(node.value);
         if (node.right) {
             this.middleTraverse(node.right);
         }
@@ -82,8 +82,42 @@ class BinaryTree {
         if (node.right) {
             this.afterTraverse(node.right);
         }
-        this.aft.push(`${node.value}`);
+        this.aft.push(node.value);
         return this.aft;
+    }
+
+    // 深度优先遍历（利用栈 - 先进后出）
+    depthFirstTraversal(node) {
+        const depth = [];
+        const stack = [];
+        stack.push(node);
+        function traversal(stack) {
+            if (!Array.isArray(stack) || stack.length <= 0) return;
+            const _node = stack.pop();
+            depth.push(_node.value);
+            if (_node.right) stack.push(_node.right);
+            if (_node.left) stack.push(_node.left);
+            traversal(stack); // 递归
+        }
+        traversal(stack);
+        return depth;
+    }
+
+    // 广度优先遍历（利用队列 - 先进先出）
+    breadthFirstTraversal(node) {
+        const breadth = [];
+        const queue = [];
+        queue.push(node)
+        function traversal(queue) {
+            if (!Array.isArray(queue) || queue.length <= 0) return;
+            const _node = queue.shift();
+            breadth.push(_node.value);
+            if (_node.left) queue.push(_node.left);
+            if (_node.right) queue.push(_node.right);
+            traversal(queue); // 递归
+        }
+        traversal(queue);
+        return breadth;
     }
 
     // 前序遍历 + 中序遍历 = 构建出树
@@ -105,6 +139,7 @@ class BinaryTree {
         const root = new TreeNode(rootValue);
         const pIndex = hashMap.get(rootValue);
 
+        // 分而治之的思想，将左右子树看做一个完整的前序遍历结果，重新放入
         root.left = this.buildTreeByPreAndMid(pre, preLeft + 1, pIndex - midLeft + preLeft, hashMap, midLeft, pIndex - 1);
         root.right = this.buildTreeByPreAndMid(pre, pIndex - midLeft + preLeft + 1, preRight, hashMap, pIndex + 1, midRight);
 
@@ -130,6 +165,7 @@ class BinaryTree {
         const root = new TreeNode(rootValue);
         const pIndex = hashMap.get(rootValue);
 
+        // 分而治之的思想，将左右子树看做一个完整的后续遍历结果，重新放入
         root.left = this.buildTreeByAftAndMid(aft, aftLeft, pIndex - 1 - midLeft + aftLeft, hashMap, midLeft, pIndex - 1);
         root.right = this.buildTreeByAftAndMid(aft, pIndex - midLeft + aftLeft, aftRight - 1, hashMap, pIndex + 1, midRight);
 
@@ -154,6 +190,14 @@ console.log('中序遍历', mid);
 // 后序遍历
 const aft = treeConstructor.afterTraverse(tree);
 console.log('后序遍历', aft);
+
+// 深度优先遍历
+const depth = treeConstructor.depthFirstTraversal(tree);
+console.log('深度优先遍历', depth);
+
+// 广度优先遍历
+const breadth = treeConstructor.breadthFirstTraversal(tree);
+console.log('广度优先遍历', breadth);
 
 // 前序遍历 + 中序遍历 = 构建出树
 /**
@@ -194,3 +238,6 @@ console.log(combinPreMidRoot);
 
 const combinAftMidRoot = treeConstructor.createTreeByAftAndMid(aft, mid);
 console.log(combinAftMidRoot);
+
+const aa = "{   \"results\" : [      {         \"address_components\" : [            {               \"long_name\" : \"Shenzhen\",               \"short_name\" : \"Shenzhen\",               \"types\" : [ \"locality\", \"political\" ]            },            {               \"long_name\" : \"Guangdong Province\",               \"short_name\" : \"Guangdong Province\",               \"types\" : [ \"administrative_area_level_1\", \"political\" ]            },            {               \"long_name\" : \"China\",               \"short_name\" : \"CN\",               \"types\" : [ \"country\", \"political\" ]            }         ],         \"formatted_address\" : \"Shenzhen, Guangdong Province, China\",         \"geometry\" : {            \"bounds\" : {               \"northeast\" : {                  \"lat\" : 22.8617483,                  \"lng\" : 114.6284666               },               \"southwest\" : {                  \"lat\" : 22.3963441,                  \"lng\" : 113.7514535               }            },            \"location\" : {               \"lat\" : 22.543096,               \"lng\" : 114.057865            },            \"location_type\" : \"APPROXIMATE\",            \"viewport\" : {               \"northeast\" : {                  \"lat\" : 22.7809313,                  \"lng\" : 114.3553162               },               \"southwest\" : {                  \"lat\" : 22.3293893,                  \"lng\" : 113.7524414               }            }         },         \"place_id\" : \"ChIJkVLh0Aj0AzQRyYCStw1V7v0\",         \"types\" : [ \"locality\", \"political\" ]      }   ],   \"status\" : \"OK\"}";
+console.log(JSON.parse(aa));
