@@ -20,7 +20,7 @@ class BinaryTree {
 
     createTree(list) {
         if (!Array.isArray(list)) return null;
-        for (const value of nodes) {
+        for (const value of list) {
             this.setNode(value);
         }
         return this.root;
@@ -39,7 +39,7 @@ class BinaryTree {
             if (!node.left) {
                 node.left = new TreeNode(value);
             } else {
-                this.buildTree(node.left, value)
+                this.buildTree(node.left, value);
             }
         } else {
             if (!node.right) {
