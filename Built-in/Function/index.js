@@ -1,8 +1,25 @@
-function test1() {
-    console.log(this, arguments);
-    console.log(test1.caller)
+function func(a, b) {
+    console.log(this);
+    console.log(arguments);
+    console.log(a, b);
 }
-function test2() {
-    test1()
+
+
+
+var obj = {
+    name: '小明'
 }
-test2()
+
+// func.call(obj, 1, 2);
+// console.log('---------------');
+// func.myCall(obj, 1, 2);
+
+// func.apply(obj, [1, 2]);
+// console.log('---------------');
+// func.myApply(obj, [3, 4]);
+
+var func1 = func.myBind(obj, '张三');
+
+// func1('李四');
+
+var newFunc = new func1('王五');
