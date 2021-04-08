@@ -52,3 +52,27 @@ Function.prototype.myBind = function (ctx) {
         );
     }
 }
+
+// 柯里化
+function progressCurrying(fn) {
+    var _this = this
+    var len = fn.length;
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return function() {
+        var newArgs = args.concat(Array.prototype.slice.call(arguments));
+        var _args = [];
+        
+        for (var i = 0; i < newArgs.length; i += 1) {
+            _args.push('newArgs[' + i + ']');
+        }
+
+        // 如果参数个数小于最初的fn.length，则递归调用，继续收集参数
+        if (newArgs.length < len) {
+            return eval('progressCurrying.call(_this, fn, ' + _args + ')')
+        }
+
+        // 参数收集完毕，则执行fn
+        return fn.apply(this, newArgs);
+    }
+}
