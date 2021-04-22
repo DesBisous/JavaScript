@@ -46,6 +46,7 @@ Function.prototype.myBind = function (ctx) {
 
     return function() {
         var argu2 = [].slice.call(arguments);
+        // instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。
         func.apply(
             this instanceof arguments.callee ? ( this.__proto__ = _ctx.prototype ) || this : _ctx,
             argu1.concat(argu2)

@@ -1,4 +1,6 @@
 function func(a, b) {
+    this.a = a;
+    this.b = b;
     console.log(this);
     console.log(arguments);
     console.log(a, b);
@@ -23,3 +25,5 @@ var func1 = func.myBind(obj, '张三');
 // func1('李四');
 
 var newFunc = new func1('王五');
+
+console.log(newFunc);

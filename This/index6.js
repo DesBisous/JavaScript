@@ -33,6 +33,7 @@ function Test() {
     }
     // return null; // 也是返回 this
     // return undefined; // 也是返回 this
+    // return 非 object 也返回 this
 }
 
 var obj4 = new Test(); // obj4 -> { a: 3, b: 4 }、console.log(this) -> Test {a: 1, b: 2}
@@ -42,7 +43,7 @@ console.log(obj4);
  * var _obj = {};
  * _obj.__proto__ == Test.prototype;
  * var res = Test.call(_obj);
- * return res || obj;
+ * return typeof res === 'object' && res !== null ? res : obj;
  * 
  * 总结：
  * 构造函数默认隐式返回 this，或者手动返回 this，这个 this 指向的新对象的构造都是成功的
